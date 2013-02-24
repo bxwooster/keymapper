@@ -35,9 +35,9 @@ int main(int args, char* argv[])
 {
 	const char message[] =
 		"Caps Lock Remapper\n"
-		"Remaps Caps Lock to Backspace on the fly without rebooting.\n"
-		"Written by Petrus Theron http://freshcode.co/\n"
-		"Fork this on GitHub: http://github.com/pate/keymapper\n"
+		"Remaps Caps Lock to Escape on the fly without rebooting.\n"
+		"Originally written by Petrus Theron http://freshcode.co/\n"
+		"Fork the original on GitHub: http://github.com/pate/keymapper\n"
 		"\nPress Ctrl+C or close window to exit.\n";
 
 	DWORD count = 0;
@@ -51,7 +51,7 @@ int main(int args, char* argv[])
 
 	// Retrieve the applications instance
 	HINSTANCE appInstance = GetModuleHandle(NULL);
- 
+
 	// Attach global keyboard hook to capture keystrokes
 	HHOOK hHook = SetWindowsHookEx(WH_KEYBOARD_LL, LowLevelKeyboardProc, appInstance, 0);
 	if (!hHook)
@@ -83,14 +83,14 @@ LRESULT CALLBACK LowLevelKeyboardProc(int nCode, WPARAM wParam, LPARAM lParam)
 			switch (wParam)
 			{
 			case WM_KEYDOWN:
-				keybd_event(VK_BACK, 0x8e, 0, 0);
+				keybd_event(VK_ESCAPE, 0x8e, 0, 0);
 				return 1;
 			case WM_KEYUP:
-				keybd_event(VK_BACK, 0x8e, KEYEVENTF_KEYUP, 0);
+				keybd_event(VK_ESCAPE, 0x8e, KEYEVENTF_KEYUP, 0);
 				return 1;
 			}
 		}
-		
+
 		default:
 			return CallNextHookEx( NULL, nCode, wParam, lParam );
 	}
